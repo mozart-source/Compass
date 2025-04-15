@@ -1,0 +1,44 @@
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Build artifacts
+.pytest_cache/
+.mypy_cache/
+.tox/
+*.egg-info/
+dist/
+build/
+htmlcov/
+.coverage
+
+# Data and cache
+cache/
+*.log
+*.sqlite3
+*.db
+etl/etl_output/
+etl/analytics/*.ipynb
+
+# Docs
+docs/
+MD files/
+*.md
+*.docx
+
+# Environment
+.env
+.env.*
+!/.env.example 

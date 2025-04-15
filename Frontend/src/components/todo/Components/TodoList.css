@@ -1,0 +1,305 @@
+.todo-container {
+  margin: 16px 16px 0 16px;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: hsl(var(--background));
+  flex: 1;
+  overflow: auto;
+}
+
+.todo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  gap: 8px;
+  border-bottom: 1px solid hsl(var(--border));
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 4px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-input {
+  width: 200px;
+  height: 32px;
+  font-size: 13px;
+  background-color: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  max-width: 300px;
+}
+
+.table-container {
+  height: 400px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Table styles */
+:where(th, td) {
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  height: 40px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: hsl(var(--foreground));
+}
+
+:where(th) {
+  font-weight: 500 !important;
+  color: hsl(var(--muted-foreground)) !important;
+  text-transform: none !important;
+}
+
+.task-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.task-id {
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  font-family: ui-monospace, monospace;
+  min-width: 85px;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.type-badge {
+  font-size: 11px !important;
+  font-weight: 500;
+  padding: 0 6px !important;
+  text-transform: capitalize;
+  height: 18px;
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+}
+
+.status-badge, .priority-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: hsl(var(--muted-foreground));
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background-color: #f3f4f6;
+  font-size: 0.875rem;
+}
+
+.task-title {
+  font-weight: 500;
+  flex: 1;
+  min-width: 200px;
+}
+
+.todo-footer {
+  margin: 0;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: hsl(var(--muted-foreground));
+  font-size: 13px;
+  height: 40px;
+  background: white;
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pagination > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rows-select {
+  height: 32px !important;
+  min-width: 65px !important;
+  padding: 0 8px !important;
+  font-size: 13px !important;
+  background: transparent !important;
+  border: 1px solid hsl(var(--border)) !important;
+  margin: 0 !important;
+  color: white !important;
+  width: 80px;
+  margin-left: 0.5rem;
+}
+
+.pagination > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Text styles */
+.pagination span {
+  color: hsl(var(--muted-foreground));
+  font-size: 13px !important;
+  line-height: 1;
+}
+
+/* Button group */
+.pagination .flex {
+  display: flex;
+  height: 32px;
+}
+
+/* Pagination buttons */
+.pagination button {
+  border: 1px solid hsl(var(--border));
+  background: transparent;
+  height: 32px !important;
+  width: 32px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+}
+
+.pagination button:hover {
+  background: hsl(var(--muted)/0.1);
+}
+
+.pagination button svg {
+  height: 16px !important;
+  width: 16px !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Connect buttons by removing right border and using negative margin */
+.pagination button:not(:last-child) {
+  border-right: none;
+}
+
+/* Remove any gaps between buttons */
+.pagination button + button {
+  margin-left: -1px !important;
+}
+
+/* Button border radius */
+.pagination button {
+  border-radius: 0;
+}
+
+.pagination button:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.pagination button:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* Adjust checkbox size */
+.checkbox {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 4px !important;
+  border-width: 1px !important;
+}
+
+/* Table row hover effect */
+.table-container tr:hover {
+  background: hsl(var(--muted)/0.05) !important;
+}
+
+/* Dropdown menu button */
+.dropdown-trigger {
+  height: 24px !important;
+  width: 24px !important;
+  padding: 0 !important;
+}
+
+/* New styles for enhanced features */
+.quick-add-container {
+  background-color: #f9fafb;
+}
+
+.quick-add-input {
+  width: 100%;
+}
+
+.quick-add-btn {
+  flex-shrink: 0;
+}
+
+.subtasks-progress {
+  width: 100%;
+  padding-left: 1.5rem;
+}
+
+/* Drag and drop styles */
+.table-row-dragging {
+  background-color: #f3f4f6 !important;
+  opacity: 0.8;
+}
+
+/* Tag styles */
+.tag-badge {
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Color coding styles */
+.todo-row-colored {
+  transition: background-color 0.2s ease;
+}

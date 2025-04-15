@@ -1,0 +1,87 @@
+.view-buttons {
+  position: relative;
+  display: flex;
+  background: hsl(var(--muted));
+  padding: 2px;
+  border-radius: var(--radius);
+  gap: 1px;
+}
+
+.view-button {
+  position: relative;
+  z-index: 1;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  transition: all 0.2s ease;
+  min-width: 36px;
+  text-align: center;
+}
+
+.view-button:hover {
+  color: hsl(var(--foreground));
+}
+
+.view-button.active {
+  color: hsl(var(--primary));
+}
+
+.view-selector {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  background: hsl(var(--background));
+  border-radius: calc(var(--radius) - 2px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-button[data-view="day"].active ~ .view-selector {
+  width: 36px;
+  transform: translateX(0);
+}
+
+.view-button[data-view="3day"].active ~ .view-selector {
+  width: 42px;
+  transform: translateX(36px);
+}
+
+.view-button[data-view="week"].active ~ .view-selector {
+  width: 36px;
+  transform: translateX(80px);
+}
+
+.view-button[data-view="month"].active ~ .view-selector {
+  width: 36px;
+  transform: translateX(119px);
+}
+
+.view-button[data-view="day"],
+.view-button[data-view="week"],
+.view-button[data-view="month"] {
+  min-width: 36px;
+  padding: 6px 12px;
+}
+
+.view-button[data-view="3day"] {
+  min-width: 42px;
+}
+
+.calendar-header .active {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.calendar-header .create-event-btn {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-radius: var(--radius);
+  border: none;
+  transition: opacity 0.2s ease;
+}
+
+.calendar-header .create-event-btn:hover {
+  opacity: 0.9;
+}

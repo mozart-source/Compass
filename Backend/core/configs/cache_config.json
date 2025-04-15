@@ -1,0 +1,14 @@
+{
+    "enabled": true,
+    "default_ttl": 3600,
+    "llm_cache_key_prefix": "ai_cache:",
+    "rag_cache_key_prefix": "rag_cache:",
+    "cache_backend": "redis",
+    "ttl_per_intent": {
+        "retrieve": 1800,
+        "analyze": 7200,
+        "summarize": 14400,
+        "plan": 10800
+    },
+    "invalidate_on_update": true
+}

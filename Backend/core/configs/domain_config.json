@@ -1,0 +1,319 @@
+{
+    "tasks": {
+        "repository": "TaskRepository",
+        "handler": "TaskHandler",
+        "enable_rag": true,
+        "rag_settings": {
+            "limit": 10,
+            "context_window": 2000,
+            "intent_rag_usage": {
+                "retrieve": true,
+                "analyze": true,
+                "summarize": true,
+                "plan": true
+            },
+            "filters": {
+                "content_type": [
+                    "pdf_page",
+                    "text"
+                ],
+                "domain": [
+                    "tasks",
+                    "default"
+                ],
+                "source_file": [
+                    "user_guide.pdf",
+                    "task_guide.pdf",
+                    "index.pdf"
+                ]
+            },
+            "similarity_threshold": 0.65,
+            "include_metadata": true,
+            "query_enhancement": {
+                "how_to": [
+                    "create task guide",
+                    "task management instructions",
+                    "task workflow steps"
+                ],
+                "examples": [
+                    "task examples",
+                    "sample tasks",
+                    "task templates"
+                ],
+                "reference": [
+                    "task features",
+                    "task properties",
+                    "task management concepts"
+                ]
+            }
+        },
+        "prompt_templates": {
+            "default": "You are a task management assistant. Help the user manage their tasks effectively.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: {{ user_prompt }}\n\nContext:\n{{ context_data }}\n\nRespond in a helpful, concise manner.",
+            "retrieve": "You are a task management assistant. The user is searching for specific task information.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nAvailable Tasks:\n{{ context_data }}\n\n{% if has_rag_sources %}External Knowledge:\n{{ rag_data }}\n\nSources:\n{% for source in rag_sources %}{{ source }}\n{% endfor %}{% endif %}\n\nInstructions:\n- Provide a clear, direct response focusing only on the specific tasks requested\n- Include relevant deadlines, priorities, and task details\n- Format your response as a concise list or paragraph\n- Only mention tasks that are directly relevant to the query\n- Be factual and precise",
+            "analyze": "You are a task analysis assistant. The user wants insights about their tasks.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nTask Data to Analyze:\n{{ context_data }}\n\n{% if has_rag_sources %}Additional Context:\n{{ rag_data }}{% endif %}\n\nInstructions:\n- Analyze patterns, workload distribution, and potential bottlenecks\n- Identify task dependencies and critical paths\n- Suggest potential improvements or efficiencies\n- Prioritize actionable insights over general observations\n- Include specific metrics where relevant (completion rates, timeline projections)\n- Format your analysis in sections with clear headings\n- End with 2-3 specific recommendations",
+            "summarize": "You are a task summarization assistant. The user wants a clear overview of their tasks.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nTasks to Summarize:\n{{ context_data }}\n\nInstructions:\n- Create a concise, structured summary of the tasks\n- Group tasks by priority, deadline, or status if appropriate\n- Highlight the most important or urgent items\n- Identify overdue tasks or tasks at risk\n- Format your summary as bullet points or short paragraphs\n- Keep your response focused and action-oriented\n- Include counts and statistics where helpful (e.g., '5 high-priority tasks')",
+            "plan": "You are a task planning assistant. The user needs help organizing and planning their tasks.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nAvailable Tasks:\n{{ context_data }}\n\n{% if has_rag_sources %}External Knowledge:\n{{ rag_data }}{% endif %}\n\nInstructions:\n- Create an actionable, time-bound plan based on these tasks\n- Consider deadlines, dependencies, and effort required\n- Organize tasks into a logical sequence or priority order\n- Include specific timeframes where possible\n- Identify any potential resource constraints or bottlenecks\n- Format your plan with clear sections and steps\n- End with key success metrics or milestones",
+            "create": "You are a task creation assistant. The user wants to create a new task.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Request: \"{{ user_prompt }}\"\n\nInstructions:\n- Extract the key details from the user's request to create a well-structured task\n- Determine title, description, priority, and deadline\n- Identify any tags, skills required, or dependencies\n- Respond with a confirmation message summarizing the created task\n- Provide a suggested next step or follow-up question"
+        },
+        "permissions": [
+            "admin",
+            "user"
+        ],
+        "cache": {
+            "enabled": true,
+            "ttl": 3600
+        },
+        "logging": {
+            "enabled": true,
+            "level": "info"
+        },
+        "reference_settings": {
+            "similarity_threshold": 0.7,
+            "enable_temporal_matching": true,
+            "searchable_fields": [
+                "title",
+                "description",
+                "tags",
+                "status"
+            ],
+            "temporal_fields": [
+                "created_at",
+                "updated_at",
+                "due_date",
+                "completed_at"
+            ]
+        }
+    },
+    "todos": {
+        "repository": "TodoRepository",
+        "handler": "TodoHandler",
+        "enable_rag": true,
+        "rag_settings": {
+            "limit": 10,
+            "context_window": 2000,
+            "intent_rag_usage": {
+                "retrieve": true,
+                "analyze": true,
+                "summarize": true,
+                "plan": true
+            },
+            "filters": {
+                "content_type": [
+                    "pdf_page",
+                    "text"
+                ],
+                "domain": [
+                    "todos",
+                    "default"
+                ],
+                "source_file": [
+                    "user_guide.pdf",
+                    "todo_guide.pdf",
+                    "index.pdf"
+                ]
+            },
+            "similarity_threshold": 0.65,
+            "include_metadata": true,
+            "query_enhancement": {
+                "how_to": [
+                    "create todo guide",
+                    "todo management instructions",
+                    "todo workflow steps"
+                ],
+                "examples": [
+                    "todo examples",
+                    "sample todos",
+                    "todo templates"
+                ],
+                "reference": [
+                    "todo features",
+                    "todo properties",
+                    "todo management concepts"
+                ]
+            }
+        },
+        "prompt_templates": {
+            "default": "You are a todo list assistant. Help the user manage their todos effectively.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: {{ user_prompt }}\n\nTodo Items:\n{{ context_data }}\n\nProvide a helpful response that addresses the user's needs.",
+            "retrieve": "You are a todo list assistant. The user is looking for specific todo information.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nAvailable Todos:\n{{ context_data }}\n\nInstructions:\n- Provide only the specific todo information requested\n- Be direct and concise in your response\n- Format information clearly and logically\n- If a todo cannot be found, clearly state this\n- Only include todos that directly match the query",
+            "analyze": "You are a todo analysis assistant. The user wants insights about their todos.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nTodo Data to Analyze:\n{{ context_data }}\n\nInstructions:\n- Analyze completion rates, patterns, and potential bottlenecks\n- Identify recurring themes or categories in the todos\n- Suggest improvements to todo management\n- Provide specific metrics where relevant\n- Format your analysis in clear sections\n- End with actionable recommendations",
+            "summarize": "You are a todo summarization assistant. The user wants an overview of their todos.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nTodos to Summarize:\n{{ context_data }}\n\n{% if has_rag_sources %}Additional Information:\n{{ rag_data }}{% endif %}\n\nInstructions:\n- Create a concise summary of the todo items\n- Group by status, priority, or due date if appropriate\n- Highlight important or urgent todos\n- Include counts where helpful (e.g., '3 overdue items')\n- Format as bullet points or short paragraphs\n- Keep your response focused and actionable",
+            "plan": "You are a todo planning assistant. The user needs help organizing their todos.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Query: \"{{ user_prompt }}\"\n\nTodo Items:\n{{ context_data }}\n\n{% if has_rag_sources %}External Knowledge:\n{{ rag_data }}\n\nSources:\n{% for source in rag_sources %}{{ source }}\n{% endfor %}{% endif %}\n\nInstructions:\n- Create an organized plan based on these todos\n- Consider urgency, importance, and estimated effort\n- Suggest a logical order or grouping\n- Include specific timeframes where possible\n- Format your plan with clear sections and steps\n- End with success criteria or completion indicators",
+            "create": "You are a todo creation assistant. The user wants to create a new todo item.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Request: \"{{ user_prompt }}\"\n\nInstructions:\n- Extract the key details from the user's request to create a well-structured todo item\n- Determine title, priority, and if applicable, a due date\n- Keep the description concise and actionable\n- If appropriate, suggest tags or categories\n- Respond with a confirmation message summarizing the created todo item\n- Ask if they would like to add more items or details"
+        },
+        "permissions": [
+            "user"
+        ],
+        "cache": {
+            "enabled": true,
+            "ttl": 1800
+        },
+        "logging": {
+            "enabled": false
+        }
+    },
+    "habits": {
+        "repository": "DailyHabitRepository",
+        "handler": "HabitHandler",
+        "enable_rag": true,
+        "rag_settings": {
+            "limit": 10,
+            "context_window": 2000,
+            "intent_rag_usage": {
+                "retrieve": true,
+                "analyze": true,
+                "summarize": true,
+                "plan": true
+            },
+            "filters": {
+                "content_type": [
+                    "pdf_page",
+                    "text"
+                ],
+                "domain": [
+                    "habits",
+                    "default"
+                ],
+                "source_file": [
+                    "user_guide.pdf",
+                    "habits_guide.pdf",
+                    "index.pdf"
+                ]
+            },
+            "similarity_threshold": 0.65,
+            "include_metadata": true,
+            "query_enhancement": {
+                "how_to": [
+                    "create habit guide",
+                    "habit tracking instructions",
+                    "habit workflow steps"
+                ],
+                "examples": [
+                    "habit examples",
+                    "sample habits",
+                    "habit templates"
+                ],
+                "reference": [
+                    "habit features",
+                    "habit properties",
+                    "habit tracking concepts"
+                ]
+            }
+        },
+        "prompt_templates": {
+            "default": "You are a habit-building assistant. Help the user develop and maintain positive habits.\n\nUser Query: {{ user_prompt }}\n\nHabit Information:\n{{ context_data }}\n\nProvide a helpful response that addresses the user's needs regarding habits.",
+            "retrieve": "You are a habit assistant. The user is looking for specific habit information.\n\nUser Query: \"{{ user_prompt }}\"\n\nHabit Data:\n{{ context_data }}\n\n{% if has_rag_sources %}Knowledge Base:\n{{ rag_data }}\n\nSources:\n{% for source in rag_sources %}{{ source }}\n{% endfor %}{% endif %}\n\nInstructions:\n- Provide specific habit information requested\n- Include streak data, completion status, and history if relevant\n- Be direct and concise in your response\n- Format information clearly with habit names highlighted\n- If information cannot be found, suggest related habits\n- Reference the habit guide where appropriate",
+            "analyze": "You are a habit analysis assistant. The user wants insights about their habits.\n\nUser Query: \"{{ user_prompt }}\"\n\nHabit Data to Analyze:\n{{ context_data }}\n\n{% if has_rag_sources %}Additional Knowledge:\n{{ rag_data }}{% endif %}\n\nInstructions:\n- Analyze habit performance, streaks, and completion patterns\n- Identify successful habits and areas for improvement\n- Suggest optimizations based on streak data\n- Reference behavioral science concepts from the habit guide\n- Format your analysis in clear sections\n- End with 2-3 actionable recommendations",
+            "summarize": "You are a habit summarization assistant. The user wants an overview of their habits.\n\nUser Query: \"{{ user_prompt }}\"\n\nHabits to Summarize:\n{{ context_data }}\n\n{% if has_rag_sources %}Guide Information:\n{{ rag_data }}{% endif %}\n\nInstructions:\n- Create a concise summary of the user's habits\n- Group by categories, streak status, or completion rate\n- Highlight successful streaks and habits needing attention\n- Include metrics like average completion rate\n- Format as bullet points or short paragraphs\n- Keep your response focused on actionable insights",
+            "plan": "You are a habit planning assistant. The user needs help organizing their habits.\n\nUser Query: \"{{ user_prompt }}\"\n\nHabit Information:\n{{ context_data }}\n\n{% if has_rag_sources %}Habit Best Practices:\n{{ rag_data }}\n\nSources:\n{% for source in rag_sources %}{{ source }}\n{% endfor %}{% endif %}\n\nInstructions:\n- Create an organized habit plan\n- Consider habit stacking, implementation intentions\n- Suggest a logical order or grouping (morning/evening)\n- Include specific cues and rewards\n- Reference habit-building strategies from the guide\n- Format your plan with clear sections and steps\n- End with success indicators and milestone celebrations",
+            "create": "You are a habit creation assistant. The user wants to establish a new habit.\n\n{% if conversation_history %}Previous Conversation:\n{% for msg in conversation_history %}\n{% if msg.role == 'user' %}User: {{ msg.content }}\n{% else %}Assistant: {{ msg.content }}\n{% endif %}{% endfor %}\n{% endif %}\nUser Request: \"{{ user_prompt }}\"\n\nInstructions:\n- Extract key details to create a sustainable habit\n- Determine the habit name, frequency (daily/weekly), and optimal time\n- Consider motivation factors and potential obstacles\n- Suggest implementation intentions (if-then plans)\n- Recommend appropriate cues, routines, and rewards\n- Respond with a confirmation summarizing the habit details\n- Provide 1-2 science-backed tips for successfully establishing this specific habit"
+        },
+        "permissions": [
+            "user"
+        ],
+        "cache": {
+            "enabled": true,
+            "ttl": 1800
+        },
+        "logging": {
+            "enabled": true,
+            "level": "info"
+        },
+        "reference_settings": {
+            "similarity_threshold": 0.75,
+            "enable_temporal_matching": true,
+            "searchable_fields": [
+                "name",
+                "description",
+                "tags",
+                "status"
+            ],
+            "temporal_fields": [
+                "created_at",
+                "updated_at",
+                "streak_start_date",
+                "last_completed_date"
+            ]
+        }
+    },
+    "default": {
+        "repository": "BaseRepository",
+        "handler": null,
+        "enable_rag": true,
+        "rag_settings": {
+            "limit": 12,
+            "context_window": 3000,
+            "intent_rag_usage": {
+                "retrieve": true,
+                "analyze": true,
+                "summarize": true,
+                "plan": true
+            },
+            "filters": {
+                "content_type": [
+                    "pdf_page",
+                    "text"
+                ],
+                "domain": [
+                    "default",
+                    "tasks",
+                    "todos",
+                    "habits"
+                ],
+                "source_file": [
+                    "user_guide.pdf",
+                    "ai_guide.pdf",
+                    "index.pdf"
+                ]
+            },
+            "similarity_threshold": 0.5,
+            "include_metadata": true,
+            "query_enhancement": {
+                "how_to": [
+                    "step by step guide",
+                    "instructions",
+                    "tutorial",
+                    "how to guide"
+                ],
+                "examples": [
+                    "example usage",
+                    "sample code",
+                    "demonstration"
+                ],
+                "reference": [
+                    "definition",
+                    "explanation",
+                    "detailed description"
+                ]
+            }
+        },
+        "prompt_templates": {
+            "default": "User Input: {{ user_prompt }}\nContext: {{ context_data }}\n\nProvide a helpful response based on the user's input and available context."
+        },
+        "permissions": [
+            "guest",
+            "user",
+            "admin"
+        ],
+        "cache": {
+            "enabled": false
+        },
+        "logging": {
+            "enabled": true,
+            "level": "debug"
+        },
+        "reference_settings": {
+            "similarity_threshold": 0.6,
+            "enable_temporal_matching": true,
+            "searchable_fields": [
+                "title",
+                "description",
+                "tags"
+            ],
+            "temporal_fields": [
+                "created_at",
+                "updated_at",
+                "due_date"
+            ]
+        }
+    }
+}

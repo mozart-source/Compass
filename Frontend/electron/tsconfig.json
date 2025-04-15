@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "sourceMap": true,
+    "outDir": "../dist-electron",
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "types": ["electron"]
+  },
+  "include": ["main.ts", "preload.ts"],
+  "exclude": [
+    "node_modules",
+    "../node_modules",
+    "../src"
+  ]
+}

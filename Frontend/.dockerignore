@@ -1,0 +1,41 @@
+# Git and IDE specific
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# Dependencies
+/node_modules/
+
+# Build outputs
+/dist/
+/build/
+/coverage/
+
+# Electron-related files that shouldn't be in the web build
+/electron/
+/electron-builder.json
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Documentation
+*.md
+*.docx
+*.txt
+
+# Environment files
+.env
+.env.*
+!/.env.example
+
+# Test reports
+junit.xml
+
+# Docker files
+Dockerfile
+.dockerignore 

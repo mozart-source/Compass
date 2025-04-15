@@ -1,0 +1,6 @@
+{
+    "global_logging": true,
+    "log_level": "info",
+    "log_file": "logs/ai_service.log",
+    "log_format": "[%(asctime)s] %(levelname)s - %(message)s"
+}

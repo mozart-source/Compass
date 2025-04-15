@@ -1,0 +1,136 @@
+name: Go Backend CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "Backend_go/**"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "Backend_go/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.24"
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          cd Backend_go
+          go mod download
+
+      - name: Run linters
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          working-directory: Backend_go
+
+      - name: Run tests
+        run: |
+          cd Backend_go
+          go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./Backend_go/coverage.txt
+
+      - name: Build
+        run: |
+          cd Backend_go
+          go build -v ./...
+
+  deploy-staging:
+    needs: build
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.24"
+
+      - name: Build Docker image
+        run: |
+          cd Backend_go
+          docker build -t compass-backend:staging .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Push to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: compass-backend
+          IMAGE_TAG: staging-${{ github.sha }}
+        run: |
+          docker tag compass-backend:staging $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag compass-backend:staging $ECR_REGISTRY/$ECR_REPOSITORY:staging-latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:staging-latest
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service --cluster compass-staging --service compass-backend --force-new-deployment
+
+  deploy-production:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.24"
+
+      - name: Build Docker image
+        run: |
+          cd Backend_go
+          docker build -t compass-backend:production .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Push to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: compass-backend
+          IMAGE_TAG: production-${{ github.sha }}
+        run: |
+          docker tag compass-backend:production $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag compass-backend:production $ECR_REGISTRY/$ECR_REPOSITORY:production-latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:production-latest
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service --cluster compass-production --service compass-backend --force-new-deployment

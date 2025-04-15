@@ -1,0 +1,87 @@
+# Binaries and compiled files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/compass-api
+
+# Go specific
+*.o
+*.a
+/_obj
+/_test
+_testmain.go
+
+# IDE specific
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Project specific
+/pkg/config/config.yaml
+/pkg/config/*.local.yaml
+.env
+.env*
+
+# Generated files
+*.pb.go
+*.pb.gw.go
+/proto/**/*.pb.go
+/proto/**/*_grpc.pb.go
+
+# Dependency directories
+/vendor/
+/bin/
+
+# Log files
+*.log
+/logs/
+/log/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache directories
+/.cache/
+
+# Test coverage
+/coverage.out
+/coverage.html
+
+# Debug files
+/debug.test
+/__debug_bin
+
+# Certificate files
+*.pem
+*.key
+*.crt
+*.csr
+
+# Local development overrides
+/Makefile.local
+
+# Redis dump file
+dump.rdb
+
+# Temporary files
+*.tmp
+*.temp
+.tmp* 
+
+docker-compose.yml
+go.mod
+go.sum
+
+*.yaml

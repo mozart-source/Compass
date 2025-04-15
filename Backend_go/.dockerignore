@@ -1,0 +1,43 @@
+# Git
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+*.swp
+*~
+*.stackdump
+
+# Go build artifacts & local directories
+*.exe
+*.out
+*.so
+*.a
+/main
+/build/
+/vendor/
+/certs/
+/data/
+/k8s/
+
+# Log files
+*.log
+
+# Ignore documentation
+*.md
+#docs/
+*.docx
+*.txt
+
+# Environment files
+.env
+.env.*
+!/.env.example
+
+*.test
+
+/scripts/

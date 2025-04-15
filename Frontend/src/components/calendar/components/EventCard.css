@@ -1,0 +1,78 @@
+.event-card {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  background: #2a2a2a;
+  border-radius: 6px;
+  border-left: 3px solid rgb(231, 231, 231); /* Default purple accent line */
+  padding: 6px 8px;
+  font-size: 0.875rem;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 40px;
+}
+
+.event-card:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Color variations based on category or type */
+.event-card.category-work {
+  border-left-color: #8b5cf6; /* Purple */
+}
+
+.event-card.category-personal {
+  border-left-color: #10b981; /* Green */
+}
+
+.event-card.category-meeting {
+  border-left-color: #3b82f6; /* Blue */
+}
+
+.event-card.category-health {
+  border-left-color: #ef4444; /* Red */
+}
+
+/* Swimming class style (light blue) */
+.event-card.swimming {
+  border-left-color: #0ea5e9; /* Light blue */
+}
+
+/* Little Tigers style (green) */
+.event-card.tigers {
+  border-left-color: #10b981; /* Green */
+}
+
+/* Master Chef style (pink) */
+.event-card.chef {
+  border-left-color: #ec4899; /* Pink */
+}
+
+.event-title {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  font-size: 0.875rem;
+  color: #e5e5e5;
+}
+
+.event-time {
+  font-size: 0.75rem;
+  color: #a0a0a0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.event-time::before {
+  display: none;
+} 

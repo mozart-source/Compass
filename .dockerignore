@@ -1,0 +1,153 @@
+# Ignore other services' directories completely
+Backend/
+Backend_go/
+notes-server/
+
+# Ignore git and IDE files
+.git/
+.gitignore
+.vscode/
+.idea/
+.cursor/
+.mypy_cache/
+.pytest_cache/
+
+# Ignore node modules
+node_modules/
+
+
+# Ignore node modules and build artifacts from frontend
+Frontend/node_modules/
+Frontend/dist/
+Frontend/build/
+Frontend/electron/
+Frontend/electron-builder.json
+Frontend/coverage/
+
+# Misc
+*.stackdump
+k8s/
+prometheus/
+mcp_py/
+MD files/
+COMPASS/
+$nul
+bash.exe.stackdump
+
+# Env files in root
+.env
+.env.*
+!/.env.example
+
+# Root doc files
+docs/
+logs/
+*.md
+README.md
+configure_dashboard.py
+*.docx
+*.txt
+*.log
+*.bat
+*.sh
+*.py
+*.jsonl
+*.json
+*.yaml
+*.yml
+*.xml
+
+node_modules
+npm-debug.log
+dist
+Dockerfile
+.dockerignore
+
+# Git and version control
+.git/
+.gitignore
+*.git
+.github/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+docs/
+MD files/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build artifacts and cache
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Go artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Database and logs
+*.log
+*.sql
+*.sqlite
+*.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.bak
+*.backup
+
+# Large data directories
+data/
+cache/
+logs/
+writable/ 
