@@ -64,9 +64,9 @@ class ProcessPDFResponse(BaseModel):
     error: Optional[str] = None
 
 
-class RewriteRequest(BaseModel):
-    text: str
-    user_id: Optional[str] = None
+# class RewriteRequest(BaseModel):
+#     text: str
+#     user_id: Optional[str] = None
 
 
 router = APIRouter(prefix="/ai", tags=["AI Services"])

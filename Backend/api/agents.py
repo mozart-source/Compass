@@ -12,7 +12,17 @@ from datetime import datetime
 
 router = APIRouter(prefix="/agents", tags=["agents"])
 
-@router.post("/actions", response_model=AgentActionResponse)
+# @router.post("/actions", response_model=AgentActionResponse)
+# async def create_agent_action(
+#     action: AgentActionCreate,
+#     db: AsyncSession = Depends(get_db),
+#     current_user = Depends(get_current_user)
+# ):
+#     """Create a new agent action."""
+#     repo = AgentRepository(db)
+#     result = await repo.create_agent_action(**action.dict())
+#     return result
+@router.post("/realactions", response_model=AgentActionResponse)
 async def create_agent_action(
     action: AgentActionCreate,
     db: AsyncSession = Depends(get_db),

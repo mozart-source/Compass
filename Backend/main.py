@@ -89,17 +89,17 @@ class EncodingSafeHandler(logging.StreamHandler):
             # Use a safer approach to write to the stream
             stream.write(msg + self.terminator)
             self.flush()
-        except UnicodeEncodeError:
-            # Fall back to ascii with replacement if Unicode fails
-            try:
-                msg = self.format(record)
-                # Replace problematic characters
-                safe_msg = msg.encode('ascii', 'replace').decode('ascii')
-                stream = self.stream
-                stream.write(safe_msg + self.terminator)
-                self.flush()
-            except Exception:
-                self.handleError(record)
+        # except UnicodeEncodeError:
+        #     # Fall back to ascii with replacement if Unicode fails
+        #     try:
+        #         msg = self.format(record)
+        #         # Replace problematic characters
+        #         safe_msg = msg.encode('ascii', 'replace').decode('ascii')
+        #         stream = self.stream
+        #         stream.write(safe_msg + self.terminator)
+        #         self.flush()
+        #     except Exception:
+        #         self.handleError(record)
         except Exception:
             self.handleError(record)
 

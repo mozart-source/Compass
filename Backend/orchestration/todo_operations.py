@@ -32,7 +32,8 @@ async def try_backend_urls(client_func, endpoint: str, **kwargs) -> Dict[str, An
     global GO_BACKEND_URL
 
     errors = []
-    timeout = httpx.Timeout(10.0, connect=5.0)
+    timeout = httpx.Timeout(16.0, connect=5.0)
+    # timeout = httpx.Timeout(10.0, connect=5.0)
 
     logger.info(
         f"[CONNECTION] Trying to connect to endpoint {endpoint} with {len(GO_BACKEND_URLS)} URLs")
