@@ -21,12 +21,12 @@ export interface RegisterCredentials {
   locale?: string;
 }
 
-// export interface AuthResponse {
-//   token: string;
-//   user: User;
-//   session: SessionResponse;
-//   expires_at: string;
-// }
+export interface AuthResponse {
+  token: string;
+  user: User;
+  session: SessionResponse;
+  expires_at: string;
+}
 export interface AuthResponseInterface {
   token: string;
   user: User;

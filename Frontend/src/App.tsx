@@ -34,7 +34,9 @@ import { Login } from "./components/auth/Login";
 import { Signup } from "./components/auth/Signup";
 import OAuthCallback from "./pages/auth/callback";
 import { useAuth } from "@/hooks/useAuth";
-import { useQueryClient } from "@tanstack/react-query";
+//import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient1 } from "@tanstack/react-query";
+import { useQueryClient2} from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import Chatbot from "./components/chatbot/Chatbot";
 import CommandPage from "@/pages/command";
@@ -113,7 +115,9 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={client//}>
+        <ThemeProvider defaultTheme="dark" storageKey="aiwa1-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="aiwa2theme">
         <ThemeProvider defaultTheme="dark" storageKey="aiwa-theme">
           <QueryClientProvider client={queryClient}>
             <WebSocketProvider>

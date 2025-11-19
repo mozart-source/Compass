@@ -168,10 +168,9 @@ async def try_backend_urls(client_func, endpoint: str, **kwargs) -> Dict[str, An
                           "type": "connection_error"})
         except httpx.TimeoutException as e:
             # Timeout errors
-            # logger.warning(
-            #     f"[CONNECTION] Timeout connecting to {base_url}: {str(e)}")
             logger.warning(
-                f"[CONNECTION1] Timeout connecting to {base_url}: {str(e)}")
+                f"[CONNECTION] Timeout connecting to {base_url}: {str(e)}")
+
             errors.append(
                 {"url": base_url, "error": str(e), "type": "timeout"})
         except httpx.HTTPStatusError as e:

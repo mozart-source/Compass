@@ -33,7 +33,6 @@ async def try_backend_urls(client_func, endpoint: str, **kwargs) -> Dict[str, An
 
     errors = []
     timeout = httpx.Timeout(16.0, connect=5.0)
-    # timeout = httpx.Timeout(10.0, connect=5.0)
 
     logger.info(
         f"[CONNECTION] Trying to connect to endpoint {endpoint} with {len(GO_BACKEND_URLS)} URLs")
@@ -70,6 +69,8 @@ async def try_backend_urls(client_func, endpoint: str, **kwargs) -> Dict[str, An
                 except Exception as json_error:
                     logger.warning(
                         f"[CONNECTION] Response not JSON: {str(json_error)}")
+                    logger.warning(
+                        f"//////////////////////[CONNECTION] Response not JSON: {str(json_error)}")
                     return {"status": "success", "message": response.text}
         except Exception as e:
             logger.warning(

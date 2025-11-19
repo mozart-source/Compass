@@ -6,9 +6,12 @@ export const NOTES_API_URL = '/notes';
 // Enhanced environment detection function
 const detectEnvironment = () => {
   const isDevelopment = process.env.NODE_ENV === 'development';
+  /* const isLocalhost = window.location.hostname === 'localhost' || 
+                      window.location.hostname === '127.0.0.1' ||
+                      window.location.hostname === '0.0.0.0'; */
   const isLocalhost = window.location.hostname === 'localhost' || 
                       window.location.hostname === '127.0.0.1' ||
-                      window.location.hostname === '0.0.0.0';
+                      window.location.hostname === '192.168.2.1';
   
   // Check if running through Vite dev server (updated ports)
   const isViteDevServer = window.location.port === '5173' || 
