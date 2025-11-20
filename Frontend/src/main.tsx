@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App1 from "./App";
+import App from "./App";
 import "./index.css";
 
 // Move QueryClientProvider to main entry file
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ChatProvider>
-          <App1 />
+          <App />
         </ChatProvider>
       </QueryClientProvider>
     </BrowserRouter>

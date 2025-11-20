@@ -69,8 +69,6 @@ async def try_backend_urls(client_func, endpoint: str, **kwargs) -> Dict[str, An
                 except Exception as json_error:
                     logger.warning(
                         f"[CONNECTION] Response not JSON: {str(json_error)}")
-                    logger.warning(
-                        f"//////////////////////[CONNECTION] Response not JSON: {str(json_error)}")
                     return {"status": "success", "message": response.text}
         except Exception as e:
             logger.warning(
